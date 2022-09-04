@@ -1,6 +1,15 @@
 {
-    "require": {
-      "psr/log": "*",
-      "twig/twig": "*"
-    }
-  }
+    "name": "user/localhost",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App"
+        }
+    },
+    "authors": [
+        {
+            "name": "zhenya091992",
+            "email": "zhenya091992@gmail.com"
+        }
+    ],
+    "require": {}
+}
