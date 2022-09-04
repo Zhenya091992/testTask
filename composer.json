@@ -11,5 +11,7 @@
             "email": "zhenya091992@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "twig/twig": "*"
+    }
 }
