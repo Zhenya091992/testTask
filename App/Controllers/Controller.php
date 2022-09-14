@@ -4,12 +4,12 @@ namespace App\Controllers;
 
 use App\View;
 
-class Controller
+abstract class Controller
 {
-   public function autorisation()
-   {
-        $view = new View(__DIR__ . '/../../resource/view');
+    protected $view;
 
-        $view->display('autorise/content.twig', []);
-   }
+    public function __construct()
+    {
+        $this->view = new View(__DIR__ . '/../../resource/view');
+    }
 }

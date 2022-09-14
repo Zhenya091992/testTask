@@ -1,5 +1,7 @@
 <?php
-// ['uri' => ['Controller', 'action']]
+
 return [
-'/Autorisation' => ['controller' => 'App\Controllers\Controller', 'action' => 'autorisation']
+    '/Registration' => ['controller' => 'App\Controllers\AccessController', 'action' => 'registration'],
+    '/Authentication' => ['controller' => 'App\Controllers\AccessController', 'action' => 'authentication'],
+    '/Authenticate' => ['controller' => 'App\Controllers\AccessController', 'action' => 'authenticate']
 ];

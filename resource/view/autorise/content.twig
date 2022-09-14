@@ -1,23 +1,45 @@
 {% extends "mainTemplate.twig" %}
 
 {% block content %}
-   <form method="post" accept-charset="UTF-8">
-    
-    <input type="hidden" name="action" value="users/send-password-reset-email">
-    
-   
-    <h3><label for="loginName">Username or email</label></h3>
-    <input id="loginName" type="text" name="loginName"
-        value="{% if loginName is defined %}{{ loginName }}{% else %}{{ craft.app.user.rememberedUsername }}{% endif %}">
-   
-    {% if errors is defined %}
-        <ul class="errors">
-            {% for error in errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-   
-    <input type="submit" value="Submit">
-   </form>
+  <div class="container-fluid d-flex h-100 justify-content-center align-items-center p-0">
+    <div class="row align-items-center">
+        <main class="form-signin">
+            <form>
+                <h1 class="h3 mb-3 fw-normal text-white">Please fill the fields</h1>
+                <div class="mb-3">
+                    <label for="emailUser">Email address</label>
+                    <input name="login" type="email" class="form-control" id="loginUseer" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="passwordUser">Password</label>
+                    <input name="password" type="password" class="form-control" id="passwordUser" placeholder="Password">
+                </div>
+                <button class="btn-primary" id="submit" type="submit">Signin</button>
+            </form>
+        </main>
+    </div>
+</div>
+            <script>
+                $('#submit').click(function (e) {
+                    e.preventDefault();
+                    
+                    var form = {
+                        login: $('input[name="login"]').val(),
+                        password: $('input[name="password"]').val()
+                    }
+
+                    var formJson = JSON.stringify(form);
+
+                    $.ajax({
+                        url: '/Authenticate',
+                        type: 'POST',
+                        data: {form: formJson},
+
+                        success (responce) {
+                            console.log(responce);
+                        }
+                    });
+                });
+            </script>
+
 {% endblock %}
