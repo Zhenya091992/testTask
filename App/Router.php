@@ -11,12 +11,12 @@ class Router
         $this->routs = $routs;
     }
 
-    public function routing(string $requestUri)
+    public function routing(string $requestUri , $data = null)
     {
         foreach ($this->routs as $uri => $setup) {
             if ($uri == $requestUri) {
-                $controller = new $setup['controller'];
-                $controller->{$setup['action']}();
+                $controller = new $setup['controller']($this);
+                $controller->{$setup['action']}($data);
             }
         }
     }
