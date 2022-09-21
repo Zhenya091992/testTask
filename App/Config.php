@@ -38,7 +38,7 @@ class Config
      */
     protected function __construct()
     {
-        //$this->configData = include __DIR__ . '/../config/config.php';
+        $this->configData = include __DIR__ . '/../config/config.php';
         $this->routs = include __DIR__ . '/../config/routs.php';
     }
 }
