@@ -4,7 +4,7 @@
     <div class="container-fluid d-flex h-100 justify-content-center align-items-center p-0">
         <div class="row align-items-center">
             <main class="form-signin">
-                <form>
+                <form id="formElem">
                     <h1 class="h3 mb-3 fw-normal text-white">Please fill the fields</h1>
                     <div class="mb-3">
                         <label for="login">Login</label>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="nameUser">Name</label>
-                        <input name="nameUser" type="email" class="form-control" id="nameUseer" placeholder="name@example.com">
+                        <input name="nameUser" type="text" class="form-control" id="nameUseer" placeholder="name@example.com">
                     </div>
                     <button class="btn-primary" id="submit" type="submit">Signin</button>
                 </form>
@@ -32,29 +32,17 @@
         </div>
     </div>
     <script>
-        $('#submit').click(function (e) {
+        formElem.onsubmit = async (e) => {
             e.preventDefault();
 
-            var form = {
-                login: $('input[name="login"]').val(),
-                password: $('input[name="password"]').val(),
-                confirmPassword: $('input[name="confirmPassword"]').val(),
-                emailUser: $('input[name="emailUser"]').val(),
-                name: $('input[name="nameUser"]').val(),
-            }
-
-            var formJson = JSON.stringify(form);
-
-            $.ajax({
-                url: '/Authenticate',
-                type: 'POST',
-                data: {form: formJson},
-
-                success (responce) {
-                    console.log(responce);
-                }
+            let response = await fetch('/Register', {
+                method: 'POST',
+                body: new FormData(formElem)
             });
-        });
+
+            let result = await response.json();
+            alert(result.login);
+        };
     </script>
 
 {% endblock %}
