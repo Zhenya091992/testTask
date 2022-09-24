@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Authorization;
 use App\Router;
 use App\View;
 use App\Request;
@@ -14,10 +15,13 @@ abstract class Controller
 
     protected $router;
 
+    protected $auth;
+
     public function __construct(Router $router)
     {
         $this->router = $router;
         $this->view = new View(__DIR__ . '/../../resource/view');
         $this->request = new Request();
+        $this->auth = Authorization::check();
     }
 }

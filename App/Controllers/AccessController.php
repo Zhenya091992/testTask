@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Config;
 use App\JsonStorage;
+use App\Validators\Rules\AuthRule;
 use App\Validators\Rules\RegisterRule;
 use App\Models\User;
 
@@ -18,30 +19,53 @@ class AccessController extends Controller
     {
         $this->request->setData($_POST);
         $rule = new RegisterRule();
-        if ($errors = $rule->validate($this->request)) {
+        $errors = $rule->validate($this->request);
+        if ($errors) {
             echo json_encode(['err' => $errors]);
             return;
         }
 
         $user = new User();
         $user->login = $this->request->getData('login');
-        $user->name = $this->request->getData('nameUser');
+        $user->name = $this->request->getData('name');
         $user->email = $this->request->getData('email');
         $user->password = $this->request->getData('password');
         $remember = $this->request->getData('remember');
-        $user->authenticate(!empty($remember));
         $user->save();
+        $user->authenticate(!empty($remember));
+
 
         echo json_encode(['success' => 'success']);
     }
 
     public function authentication()
     {
-        $this->view->display('autorise/content.twig', []);
+        $this->view->display('authentification/content.twig', []);
     }
 
     public function authenticate()
     {
-        var_dump($_POST);
+        $this->request->setData($_POST);
+        $rule = new AuthRule();
+        $errors = $rule->validate($this->request);
+        if ($errors) {
+            echo json_encode(['err' => $errors]);
+            return;
+        }
+
+        $user = User::checkPassword($this->request->getData('login'), $this->request->getData('password'));
+
+        if ($user) {
+            $remember = $this->request->getData('remember');
+            $user->authenticate($remember);
+            echo json_encode(['success' => 'success']);
+        }
+
+        echo json_encode(['err' => ['fail' => 'wrong login or password']]);
+    }
+
+    public function userExit()
+    {
+        $this->auth->unlog();
     }
 }

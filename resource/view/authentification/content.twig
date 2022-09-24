@@ -1,0 +1,52 @@
+{% extends "mainTemplate.twig" %}
+
+{% block content %}
+  <div class="container-fluid d-flex h-100 justify-content-center align-items-center p-0">
+    <div class="row align-items-center">
+        <main class="form-signin">
+            <form id="formElem">
+                <h1 class="h3 mb-3 fw-normal text-white">Please fill the fields</h1>
+                <div class="mb-3">
+                    <label for="loginUser">login</label>
+                    <input name="login" type="text" class="form-control" id="loginUser" placeholder="login">
+                    <div class="error" id="loginErr"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="passwordUser">Password</label>
+                    <input name="password" type="password" class="form-control" id="passwordUser" placeholder="Password">
+                    <div class="error" id="passwordErr"></div>
+                </div>
+                <button class="btn-primary" id="submit" type="submit">Signin</button>
+                <div class="error" id="fail"></div>
+            </form>
+        </main>
+    </div>
+</div>
+            <script>
+                formElem.onsubmit = async (e) => {
+                    e.preventDefault();
+
+                    let response = await fetch('/Authenticate', {
+                        method: 'POST',
+                        body: new FormData(formElem)
+                    });
+
+                    let result = await response.json();
+                    console.log(result);
+                    if (typeof result.err == 'undefined') {
+                        window.location.href = "/Cabinet";
+                    }
+
+                    for (var key in result.err) {
+                        if (result.err[key] != false) {
+                            printError(key, result.err[key]);
+                        }
+                    }
+                };
+
+                function printError(elemId, hintMsg) {
+                    document.getElementById(elemId).innerHTML = hintMsg;
+                }
+            </script>
+
+{% endblock %}

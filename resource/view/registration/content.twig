@@ -13,7 +13,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="passwordUser">Password</label>
-                        <input name="password" type="password" class="form-control" id="passwordUser" placeholder="Password">
+                        <input name="password" type="password" class="form-control" id="passwordUser">
                         <div class="error" id="passwordErr"></div>
                     </div>
                     <div class="mb-3">
@@ -52,6 +52,7 @@
             });
 
             let result = await response.json();
+            console.log(result);
             if (typeof result.err == 'undefined') {
                 window.location.href = "/Cabinet";
             }

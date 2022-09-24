@@ -2,10 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Authorization;
+
 class CabinetController extends Controller
 {
     public function home()
     {
-        $this->view->display('cabinet/content.twig', $errors ?? []);
+        if ($this->auth) {
+            $this->view->display('cabinet/content.twig');
+            return;
+        }
+
+        $this->view->display('authentication/content.twig');
     }
 }
