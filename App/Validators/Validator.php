@@ -36,7 +36,7 @@ class Validator
 
     public function unique(JsonStorage $storage, string $message)
     {
-        if ($storage->findWere('user', [$this->name => $this->value])) {
+        if ($storage->findWhere('user', [$this->name => $this->value])) {
             $this->errors[] = $message;
         }
 
@@ -73,6 +73,15 @@ class Validator
     public function onlyLetters($message)
     {
         if (!ctype_alpha($this->value)) {
+            $this->errors[] = $message;
+        }
+
+        return $this;
+    }
+
+    public  function require($message)
+    {
+        if (empty($this->value)) {
             $this->errors[] = $message;
         }
 

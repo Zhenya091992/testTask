@@ -15,7 +15,7 @@ class View
         $this->twig = new Environment($loader);
     }
 
-    public function display(string $template, array $data)
+    public function display(string $template, array $data = [])
     {
         $template = $this->twig->load($template);
         $template->display($data);
