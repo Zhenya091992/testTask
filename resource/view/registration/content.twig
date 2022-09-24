@@ -9,23 +9,34 @@
                     <div class="mb-3">
                         <label for="login">Login</label>
                         <input name="login" type="text" class="form-control" id="loginUseer" placeholder="login">
+                        <div class="error" id="loginErr"></div>
                     </div>
                     <div class="mb-3">
                         <label for="passwordUser">Password</label>
                         <input name="password" type="password" class="form-control" id="passwordUser" placeholder="Password">
+                        <div class="error" id="passwordErr"></div>
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword">Confirm password</label>
                         <input name="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Password">
+                        <div class="error" id="confirmPasswordErr"></div>
                     </div>
                     <div class="mb-3">
                         <label for="emailUser">Email address</label>
                         <input name="email" type="email" class="form-control" id="emailUseer" placeholder="name@example.com">
+                        <div class="error" id="emailErr"></div>
                     </div>
                     <div class="mb-3">
                         <label for="nameUser">Name</label>
-                        <input name="nameUser" type="text" class="form-control" id="nameUseer" placeholder="name@example.com">
+                        <input name="name" type="text" class="form-control" id="nameUseer" placeholder="name@example.com">
+                        <div class="error" id="nameErr"></div>
                     </div>
+                    <div class="mb-3">
+                        <label for="remember">Remember</label>
+                        <input type="checkbox" id="remember" name="remember"
+                               checked>
+                    </div>
+
                     <button class="btn-primary" id="submit" type="submit">Signin</button>
                 </form>
             </main>
@@ -41,8 +52,20 @@
             });
 
             let result = await response.json();
-            alert(result.login);
+            if (typeof result.err == 'undefined') {
+                window.location.href = "/Cabinet";
+            }
+
+            for (var key in result.err) {
+                if (result.err[key] != false) {
+                    printError(key, result.err[key]);
+                }
+            }
         };
+
+        function printError(elemId, hintMsg) {
+            document.getElementById(elemId).innerHTML = hintMsg;
+        }
     </script>
 
 {% endblock %}
