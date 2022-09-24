@@ -16,11 +16,11 @@ class AccessController extends Controller
 
     public function register()
     {
-
         $this->request->setData($_POST);
         $rule = new RegisterRule();
         if ($errors = $rule->validate($this->request)) {
-            echo json_encode($errors);
+            echo json_encode(['err' => $errors]);
+            return;
         }
 
         $user = new User();
@@ -28,8 +28,11 @@ class AccessController extends Controller
         $user->name = $this->request->getData('nameUser');
         $user->email = $this->request->getData('email');
         $user->password = $this->request->getData('password');
+        $remember = $this->request->getData('remember');
+        $user->authenticate(!empty($remember));
         $user->save();
 
+        echo json_encode(['success' => 'success']);
     }
 
     public function authentication()
