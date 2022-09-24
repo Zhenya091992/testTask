@@ -19,12 +19,19 @@ abstract class Model implements \Iterator, \ArrayAccess
         $this->storage = $storage ?? Config::instance()->configData['storage'];
     }
 
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
     public function save()
     {
         if (!empty($this->id)) {
-            $this->storage->update($this->table, $this->id, $this);
+            $this->storage->update($this->table, $this->id, $this->data);
         } else {
-            $this->storage->create($this->table, $this);
+            if ($id = $this->storage->create($this->table, $this)) {
+                $this->id = $id;
+            }
         }
     }
 

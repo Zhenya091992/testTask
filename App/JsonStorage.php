@@ -29,12 +29,14 @@ class JsonStorage implements StorageInterface
         } else {
             $this->store[] = $array;
         }
+        $id = array_key_last($this->store);
         $this->save();
+        return $id;
     }
 
     public function read($table, $id): Model
     {
-        return ModelFactory::makeModel(ucfirst($table), $this->findById($table, $id));
+        return ModelFactory::makeModel(ucfirst($table), [$id => $this->findById($table, $id)]);
     }
 
     public function update($table, $id, $model)
@@ -51,7 +53,7 @@ class JsonStorage implements StorageInterface
         $this->save();
     }
 
-    public function findWere($table, array $condition)
+    public function findWhere($table, array $condition)
     {
         $this->getAll($table);
         $matchId = [];
@@ -77,7 +79,7 @@ class JsonStorage implements StorageInterface
     {
         if (empty($this->store)) {
             $this->table = $table;
-            $this->store = json_decode(file_get_contents($this->path . $table . '.json'), true);
+            $this->store = json_decode(file_get_contents($this->path . $table . '.json'), true) ?? [];
         }
     }
 

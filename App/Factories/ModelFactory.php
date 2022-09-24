@@ -8,9 +8,11 @@ abstract class ModelFactory
 {
     public static function makeModel($model, array $data)
     {
+        $id = array_keys($data)[0];
         $nameModel = 'App\Models\\' . $model;
         $object = new $nameModel();
-        foreach ($data as $property => $value) {
+        $object->setId($id);
+        foreach ($data[$id] as $property => $value) {
             $object->$property = $value;
         }
 
