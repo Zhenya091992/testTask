@@ -21,6 +21,6 @@ class Request
 
     public function getData($name)
     {
-        return $this->data[$name];
+        return $this->data[$name] ?? null;
     }
 }
