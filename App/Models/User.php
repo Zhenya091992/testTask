@@ -7,7 +7,7 @@ use App\StorageInterface;
 
 class User extends Model
 {
-    protected $table = 'users';
+    protected $table = 'user';
 
     public function __set($name, $value)
     {
@@ -27,10 +27,29 @@ class User extends Model
         return password_verify($user->solt . $password . $user->solt, $user->password);
     }
 
+    public function authenticate(bool $remember)
+    {
+        $this->token = rand(10000000000000000, 100000000000000000);
+        $_SESSION['user']['token'] = $this->token;
+        if ($remember) {
+            $time = time()+86400 * 30 * 12;
+            setcookie('loginUser', $this->login, $time);
+            setcookie('tokenUser', $this->token, $time);
+        }
+    }
+
+    public function unlog()
+    {
+        $this->token = null;
+        $this->save();
+    }
+
     protected function handlePassword($password)
     {
-        $this->salt = rand(6, 10);
+        $this->salt = rand(100000, 10000000);
 
         return md5($this->salt . $password . $this->salt);
     }
+
+
 }
