@@ -16,10 +16,12 @@ class AuthRule implements RuleInterface
         $err = [];
         $result['loginErr'] = (new Validator($request,'login'))
             ->require('fill the field')
+            ->noSpaces('spaces are not allowed')
             ->check();
         $err['loginErr'] = $result['loginErr'] ?? '';
         $result['passwordErr'] = (new Validator($request,'password'))
             ->require('fill the field')
+            ->noSpaces('spaces are not allowed')
             ->check();
         $err['passwordErr'] = $result['passwordErr'] ?? '';
         if (array_filter($err)) {

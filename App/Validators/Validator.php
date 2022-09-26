@@ -4,7 +4,6 @@ namespace App\Validators;
 
 use App\JsonStorage;
 use App\Request;
-use App\Validators\Rules\RuleIntarface;
 
 class Validator
 {
@@ -82,6 +81,15 @@ class Validator
     public  function require($message)
     {
         if (empty($this->value)) {
+            $this->errors[] = $message;
+        }
+
+        return $this;
+    }
+
+    public function noSpaces($message)
+    {
+        if (preg_match('/\s+/', $this->value)) {
             $this->errors[] = $message;
         }
 
