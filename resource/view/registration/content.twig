@@ -1,47 +1,39 @@
 {% extends "mainTemplate.twig" %}
 
 {% block content %}
-    <div class="container-fluid d-flex h-100 justify-content-center align-items-center p-0">
-        <div class="row align-items-center">
-            <main class="form-signin">
-                <form id="formElem">
-                    <h1 class="h3 mb-3 fw-normal text-white">Please fill the fields</h1>
-                    <div>
-                        <label for="login">Login</label>
-                        <input name="login" type="text" class="form-control" id="loginUseer" placeholder="login">
-                        <div class="error" id="loginErr"></div>
-                    </div>
-                    <div>
-                        <label for="passwordUser">Password</label>
-                        <input name="password" type="password" class="form-control" id="passwordUser">
-                        <div class="error" id="passwordErr"></div>
-                    </div>
-                    <div>
-                        <label for="confirmPassword">Confirm password</label>
-                        <input name="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Password">
-                        <div class="error" id="confirmPasswordErr"></div>
-                    </div>
-                    <div>
-                        <label for="emailUser">Email address</label>
-                        <input name="email" type="text" class="form-control" id="emailUseer" placeholder="name@example.com">
-                        <div class="error" id="emailErr"></div>
-                    </div>
-                    <div>
-                        <label for="nameUser">Name</label>
-                        <input name="name" type="text" class="form-control" id="nameUseer" placeholder="name">
-                        <div class="error" id="nameErr"></div>
-                    </div>
-                    <div>
-                        <label for="remember">Remember</label>
-                        <input type="checkbox" id="remember" name="remember"
-                               checked>
-                    </div>
-
-                    <button class="btn-primary" id="submit" type="submit">Signin</button>
-                </form>
-            </main>
-        </div>
+<form id="formElem">
+    <h1>Please fill the fields</h1>
+    <div>
+        <label for="login">Login</label>
+        <input name="login" type="text" class="form-control" id="loginUseer" placeholder="login">
+        <div class="error" id="loginErr"></div>
     </div>
+    <div>
+        <label for="passwordUser">Password</label>
+        <input name="password" type="password" class="form-control" id="passwordUser">
+        <div class="error" id="passwordErr"></div>
+    </div>
+    <div>
+        <label for="confirmPassword">Confirm password</label>
+        <input name="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Password">
+        <div class="error" id="confirmPasswordErr"></div>
+    </div>
+    <div>
+        <label for="emailUser">Email address</label>
+        <input name="email" type="text" class="form-control" id="emailUseer" placeholder="name@example.com">
+        <div class="error" id="emailErr"></div>
+    </div>
+    <div>
+        <label for="nameUser">Name</label>
+        <input name="name" type="text" class="form-control" id="nameUseer" placeholder="name">
+        <div class="error" id="nameErr"></div>
+    </div>
+    <div>
+        <label for="remember">Remember</label>
+        <input type="checkbox" id="remember" name="remember" checked>
+    </div>
+    <button id="submit" type="submit">Signin</button>
+
     <script>
         formElem.onsubmit = async (e) => {
             e.preventDefault();
