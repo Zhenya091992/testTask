@@ -11,7 +11,7 @@ class Router
         $this->routs = $routs;
     }
 
-    public function routing(string $requestUri , $data = null)
+    public function routing(string $requestUri, $data = null)
     {
         foreach ($this->routs as $uri => $setup) {
             if ($uri == $requestUri) {

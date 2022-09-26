@@ -78,7 +78,7 @@ class Validator
         return $this;
     }
 
-    public  function require($message)
+    public function require($message)
     {
         if (empty($this->value)) {
             $this->errors[] = $message;

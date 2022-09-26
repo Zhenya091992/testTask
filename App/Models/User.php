@@ -39,7 +39,7 @@ class User extends Model
         $_SESSION['userid'] = $this->id;
         if ($remember) {
             $this->token = rand(10000000000000000, 100000000000000000);
-            $time = time()+86400 * 30 * 12;
+            $time = time() + 86400 * 30 * 12;
             setcookie('loginUser', $this->login, $time);
             setcookie('tokenUser', $this->token, $time);
             $this->save();
@@ -48,7 +48,7 @@ class User extends Model
 
     protected function handlePassword($password)
     {
-        $this->salt ?? rand(100000, 10000000);
+            $this->salt ?? rand(100000, 10000000);
 
         return md5($this->salt . md5($password));
     }

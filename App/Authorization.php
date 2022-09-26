@@ -35,8 +35,8 @@ class Authorization
 
     public function unlog()
     {
-        unset($_SESSION['userid'],  $this->user);
-        setcookie('loginUser',  '');
+        unset($_SESSION['userid'], $this->user);
+        setcookie('loginUser', '');
         setcookie('tokenUser', '');
         self::$instance = null;
     }

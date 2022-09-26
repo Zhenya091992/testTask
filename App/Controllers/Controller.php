@@ -25,7 +25,7 @@ abstract class Controller
         $this->auth = Authorization::check();
 
         if ($this->auth) {
-            $this->view->addData(['userName' => $this->auth->user->name,  'userId' => $this->auth->user->getId]);
+            $this->view->addData(['userName' => $this->auth->user->name, 'userId' => $this->auth->user->getId]);
         }
     }
 }

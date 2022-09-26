@@ -94,6 +94,6 @@ class JsonStorage implements StorageInterface
     {
         $this->getAll($table);
 
-        return  $this->store[$id] ?? [];
+        return $this->store[$id] ?? [];
     }
 }

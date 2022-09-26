@@ -106,7 +106,7 @@ abstract class Model implements \Iterator, \ArrayAccess
 
     }
 
-    public function offsetExists($offset) :bool
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
