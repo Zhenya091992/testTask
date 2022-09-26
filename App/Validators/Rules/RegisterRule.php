@@ -23,7 +23,7 @@ class RegisterRule implements RuleInterface
 
         $result['passwordErr'] = (new Validator($request,'password'))
             ->minLength(6, 'min length must be 6 symbols')
-            ->numbsAndLetters('password must contain the letters and numbers')
+            ->numbsAndLetters('password must contain only the letters and numbers')
             ->noSpaces('spaces are not allowed')
             ->check();
         $err['passwordErr'] = $result['passwordErr'] ?? '';
@@ -44,6 +44,7 @@ class RegisterRule implements RuleInterface
         $result['nameErr'] = (new Validator($request,'name'))
             ->minLength(2, 'min length must be 2 symbols')
             ->onlyLetters('must contain only letters')
+            ->noSpaces('spaces are not allowed')
             ->check();
         $err['nameErr'] = $result['nameErr'] ?? '';
 

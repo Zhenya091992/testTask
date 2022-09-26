@@ -44,7 +44,7 @@ class Validator
 
     public function numbsAndLetters($message)
     {
-        if (preg_match('@^\d\d*\pL+[\d\pL]*|\pL\pL*\d+[\d\pL]*$@SDs', $this->value)) {
+        if (preg_match('/\W/', $this->value)) {
             $this->errors[] = $message;
         }
 
