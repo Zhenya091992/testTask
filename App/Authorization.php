@@ -19,17 +19,14 @@ class Authorization
 
 
         if (!empty(static::$instance->user)) {
-            echo 'inst';
             return static::$instance;
         }
 
         if (static::$instance->checkSession()) {
-            echo 'ses';
             return static::$instance;
         }
 
         if (static::$instance->checkCookie()) {
-            echo 'cook';
             return static::$instance;
         }
 
