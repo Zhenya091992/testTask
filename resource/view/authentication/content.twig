@@ -37,13 +37,15 @@
                     }
 
                     for (var key in result.err) {
-                        if (result.err[key] != false) {
-                            printError(key, result.err[key]);
-                        }
+                        printError(key, result.err[key]);
+
                     }
                 };
 
                 function printError(elemId, hintMsg) {
+                    if (hintMsg == false) {
+                        hintMsg = '';
+                    }
                     document.getElementById(elemId).innerHTML = hintMsg;
                 }
             </script>
