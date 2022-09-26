@@ -19,14 +19,17 @@ class Authorization
 
 
         if (!empty(static::$instance->user)) {
+            echo 'inst';
             return static::$instance;
         }
 
         if (static::$instance->checkSession()) {
+            echo 'ses';
             return static::$instance;
         }
 
         if (static::$instance->checkCookie()) {
+            echo 'cook';
             return static::$instance;
         }
 
@@ -35,7 +38,10 @@ class Authorization
 
     public function unlog()
     {
-        unset($_SESSION['userId'], $_COOKIE['loginUser'], $_COOKIE['tokenUser'], $this->user);
+        unset($_SESSION['userid'],  $this->user);
+        setcookie('loginUser',  '');
+        setcookie('tokenUser', '');
+        self::$instance = null;
     }
 
     protected function __construct()
@@ -64,6 +70,7 @@ class Authorization
     {
         if (!empty($_COOKIE['loginUser']) && !empty($_COOKIE['tokenUser'])) {
             if ($this->getUser($_COOKIE['loginUser'], $_COOKIE['tokenUser'])) {
+
                 return true;
             }
         }
@@ -78,7 +85,7 @@ class Authorization
             ->configData['storage']
             ->findWhere('user', ['login' => $login, 'token' => $token]);
         if ($user) {
-            $this->user = $user;
+            $this->user = $user[0];
 
             return true;
         }

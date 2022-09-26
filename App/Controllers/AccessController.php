@@ -40,7 +40,7 @@ class AccessController extends Controller
 
     public function authentication()
     {
-        $this->view->display('authentification/content.twig', []);
+        $this->view->display('authentication/content.twig', []);
     }
 
     public function authenticate()
@@ -59,6 +59,7 @@ class AccessController extends Controller
             $remember = $this->request->getData('remember');
             $user->authenticate($remember);
             echo json_encode(['success' => 'success']);
+            return;
         }
 
         echo json_encode(['err' => ['fail' => 'wrong login or password']]);
@@ -66,6 +67,9 @@ class AccessController extends Controller
 
     public function userExit()
     {
-        $this->auth->unlog();
+        if ($this->auth) {
+            $this->auth->unlog();
+        }
+        $this->router->routing('/Authentication');
     }
 }

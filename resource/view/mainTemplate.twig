@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    <!-- Обязательные метатеги -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
@@ -9,6 +8,13 @@
 </head>
 <body>
 
+{% if userName %}
+    Hello {{ userName }}!
+    <a href="/Exit">Exit</a>
+{% else %}
+    <a href="/Registration">Registration</a><br>
+    <a href="/Authentication">Authentication</a>
+{% endif %}
 
 {% block content %}{% endblock %}
 

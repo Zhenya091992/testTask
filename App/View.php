@@ -9,6 +9,8 @@ class View
 {
     protected $twig;
 
+    protected $data = [];
+
     public function __construct(string $passToFolderWithTemplate)
     {
         $loader = new FilesystemLoader($passToFolderWithTemplate);
@@ -18,6 +20,11 @@ class View
     public function display(string $template, array $data = [])
     {
         $template = $this->twig->load($template);
-        $template->display($data);
+        $template->display(array_merge($data, $this->data));
+    }
+
+    public function addData(array $array)
+    {
+        $this->data = $array;
     }
 }

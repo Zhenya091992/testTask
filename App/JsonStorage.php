@@ -59,7 +59,7 @@ class JsonStorage implements StorageInterface
         $matchId = [];
         foreach ($this->store as $id => $model) {
             foreach ($condition as $property => $value) {
-                if ($model[$property] === $value) {
+                if ($model[$property] == $value) {
                     $matchId[$id] = $id;
                 } else {
                     unset ($matchId[$id]);
@@ -94,6 +94,6 @@ class JsonStorage implements StorageInterface
     {
         $this->getAll($table);
 
-        return  $this->store[$id];
+        return  $this->store[$id] ?? [];
     }
 }

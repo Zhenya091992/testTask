@@ -13,20 +13,19 @@ class AuthRule implements RuleInterface
 
     public function validate(Request $request)
     {
-        $err = false;
+        $err = [];
         $result['loginErr'] = (new Validator($request,'login'))
             ->require('fill the field')
             ->check();
-        if ($result['loginErr']) {
-            $err['loginErr'] = $result['loginErr'];
-        }
+        $err['loginErr'] = $result['loginErr'] ?? '';
         $result['passwordErr'] = (new Validator($request,'password'))
             ->require('fill the field')
             ->check();
-        if ($result['passwordErr']) {
-            $err['passwordErr'] = $result['passwordErr'];
+        $err['passwordErr'] = $result['passwordErr'] ?? '';
+        if (array_filter($err)) {
+            return $err;
         }
 
-        return $err;
+        return false;
     }
 }

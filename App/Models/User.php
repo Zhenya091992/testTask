@@ -23,7 +23,9 @@ class User extends Model
         $storage = $storage ?? Config::instance()->configData['storage'];
         $user = $storage->findWhere('user', ['login' => $login]);
         if (!empty($user[0])) {
-            if (password_verify($user[0]->salt . $password . $user[0]->salt, $user[0]->password)) {
+            $user = $user[0];
+            $password = md5($user->salt . md5($password));
+            if ($password === $user->password) {
 
                 return $user;
             }
@@ -32,7 +34,7 @@ class User extends Model
         return false;
     }
 
-    public function authenticate(bool $remember)
+    public function authenticate($remember)
     {
         $_SESSION['userid'] = $this->id;
         if ($remember) {
@@ -44,17 +46,11 @@ class User extends Model
         }
     }
 
-    public function unlog()
-    {
-        $this->token = null;
-        $this->save();
-    }
-
     protected function handlePassword($password)
     {
         $this->salt ?? rand(100000, 10000000);
 
-        return md5($this->salt . $password . $this->salt);
+        return md5($this->salt . md5($password));
     }
 
 

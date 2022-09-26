@@ -24,6 +24,16 @@ abstract class Model implements \Iterator, \ArrayAccess
         $this->id = $id;
     }
 
+    public function getId()
+    {
+        return $this->id ?? null;
+    }
+
+    public function setProperty(array $property)
+    {
+        $this->data = array_merge($this->data, $property);
+    }
+
     public function save()
     {
         if (!empty($this->id)) {
@@ -51,7 +61,7 @@ abstract class Model implements \Iterator, \ArrayAccess
 
     public function __get($name)
     {
-        return $this->data[$name];
+        return $this->data[$name] ?? null;
     }
 
     public function __set($name, $value)

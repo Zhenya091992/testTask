@@ -12,9 +12,7 @@ abstract class ModelFactory
         $nameModel = 'App\Models\\' . $model;
         $object = new $nameModel();
         $object->setId($id);
-        foreach ($data[$id] as $property => $value) {
-            $object->$property = $value;
-        }
+        $object->setProperty($data[$id]);
 
         return $object;
     }
